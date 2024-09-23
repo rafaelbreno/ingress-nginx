@@ -67,6 +67,28 @@ build: precheck ensure-buildx
 push: OUTPUT=--push
 push: build
 
+.PHONY: push-image
+push-image:
+	docker buildx build \
+		--sbom=true \
+		--no-cache \ 
+		--attest type=provenance,mode=max \
+		--label=org.opencontainers.image.source=https://github.com/kubernetes/ingress-nginx \
+		--label=org.opencontainers.image.licenses=Apache-2.0 \
+		--label=org.opencontainers.image.description="Ingress NGINX $(NAME) image" \
+		--build-arg BASE_IMAGE="$(BASE_IMAGE)" \
+		--build-arg GOLANG_VERSION="$(GO_VERSION)" \
+		--build-arg VERSION="$(TAG)" \
+		--build-arg COMMIT_SHA="$(COMMIT_SHA)" \
+		--build-arg BUILD_ID="$(BUILD_ID)" \
+		--build-arg TAG=$(TAG:$(BUILD_META)=) \
+		--platform=${PLATFORMS} $(OUTPUT) \
+		--progress=$(PROGRESS) \
+		--pull $(EXTRAARGS) \
+		--push \
+		--tag $(IMAGE):$(TAG) \
+		$(NAME)/rootfs
+
 test: precheck
 	cd $(NAME)/rootfs && go test ./...
 

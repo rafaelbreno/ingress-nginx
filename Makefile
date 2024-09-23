@@ -295,6 +295,11 @@ push-image: ensure-buildx clean
 		--push \
 		rootfs
 
+.PHONY: push-image-nginx-1-25
+push-image-nginx-1-25: ensure-buildx clean
+	echo "Building binaries..."
+  ARCH="amd64 arm64" PLATFORMS="linux/amd64,linux/arm64" TAG=${NGINX_TAG} make -C images/nginx-1.25 push-image
+
 .PHONY: push-image-chroot
 push-image-chroot: ensure-buildx clean
 	echo "Building binaries..."

@@ -39,7 +39,7 @@ jobs:
         REGISTRY: ${{ github.repository_owner }}
       run: ./scripts/build
 
-    - name: Build and push container image
+    - name: Build and push container image - nginx 1.25
       uses: rancher/ecm-distro-tools/actions/publish-image@master
       if: github.event_name == 'release' && github.event.action == 'created'
       env:
@@ -51,6 +51,7 @@ jobs:
         public-username: ${{ secrets.DOCKER_USERNAME }}
         public-password: ${{ secrets.DOCKER_PASSWORD }}
         push-to-prime: false
+        target: push-image-nginx-1-25
 
     - name: Build and push container image
       uses: rancher/ecm-distro-tools/actions/publish-image@master
