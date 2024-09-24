@@ -33,7 +33,7 @@ export DOCKER_CLI_EXPERIMENTAL=enabled
 
 # build with buildx
 PLATFORMS?=linux/amd64,linux/arm64
-BUILDX_PLATFORMS?=linux/amd64,linux/arm64
+BUILDX_PLATFORMS?=linux/amd64
 OUTPUT=
 PROGRESS=plain
 build: ensure-buildx
