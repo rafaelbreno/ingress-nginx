@@ -51,7 +51,7 @@ jobs:
         public-username: ${{ secrets.DOCKER_USERNAME }}
         public-password: ${{ secrets.DOCKER_PASSWORD }}
         push-to-prime: false
-        target: push-image-nginx-1-25
+        make-target: push-image-nginx-1-25
 
     - name: Build and push container image
       uses: rancher/ecm-distro-tools/actions/publish-image@master
