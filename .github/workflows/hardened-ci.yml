@@ -34,10 +34,10 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Base Image
-      env:
-        REGISTRY: ${{ github.repository_owner }}
-      run: ./scripts/build
+    #- name: Build Base Image
+      #env:
+        #REGISTRY: ${{ github.repository_owner }}
+      #run: ./scripts/build
 
     - name: Build and push container image - nginx 1.25
       uses: rancher/ecm-distro-tools/actions/publish-image@master
