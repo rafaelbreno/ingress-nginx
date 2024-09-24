@@ -52,7 +52,8 @@ push-image:
 		--sbom=true \
 		--attest type=provenance,mode=max \
 		--no-cache \
-		--platform=${PLATFORMS} $(OUTPUT) \
+		--platform=$(PLATFORMS) \
+		$(OUTPUT) \
 		--progress=$(PROGRESS) \
 		--tag $(IMAGE):$(TAG) \
 		--push \
