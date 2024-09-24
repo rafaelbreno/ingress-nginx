@@ -55,9 +55,8 @@ push-image:
 		--platform=$(PLATFORMS) \
 		$(OUTPUT) \
 		--progress=$(PROGRESS) \
-		--tag $(IMAGE):$(TAG) \
 		--push \
-		rootfs
+		--tag $(IMAGE):$(TAG) rootfs
 
 # enable buildx
 ensure-buildx:
