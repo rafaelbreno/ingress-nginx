@@ -51,13 +51,12 @@ push-image:
 	docker buildx build \
 		--sbom=true \
 		--attest type=provenance,mode=max \
-		--no-cache \ 
+		--no-cache \
 		--platform=${PLATFORMS} $(OUTPUT) \
 		--progress=$(PROGRESS) \
-		--tag $(IMAGE):$(TAG) \ 
+		--tag $(IMAGE):$(TAG) \
 		--push \
 		rootfs
-
 
 # enable buildx
 ensure-buildx:
