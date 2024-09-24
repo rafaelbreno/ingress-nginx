@@ -298,7 +298,7 @@ push-image: ensure-buildx clean
 .PHONY: push-image-nginx-1-25
 push-image-nginx-1-25: ensure-buildx clean
 	echo "Building binaries..."
-	make -C images/nginx-1.25 push-image
+	$(foreach PLATFORM,$(PLATFORMS), echo -n "$(PLATFORM)..."; ARCH=$(PLATFORM) PLATFORM=$(PLATFORM) make -C images/nginx-1.25 push-image;)
 
 .PHONY: push-image-chroot
 push-image-chroot: ensure-buildx clean
