@@ -46,6 +46,19 @@ build: ensure-buildx
 push: OUTPUT=--push
 push: build
 
+.PHONY: push-image
+push-image:
+	docker buildx build \
+		--sbom=true \
+		--attest type=provenance,mode=max \
+		--no-cache \ 
+		--platform=${PLATFORMS} $(OUTPUT) \
+		--progress=$(PROGRESS) \
+		--tag $(IMAGE):$(TAG) \ 
+		--push \
+		rootfs
+
+
 # enable buildx
 ensure-buildx:
 # this is required for cloudbuild
