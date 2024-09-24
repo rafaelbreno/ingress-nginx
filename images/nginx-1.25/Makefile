@@ -52,7 +52,7 @@ push-image:
 		--sbom=true \
 		--attest type=provenance,mode=max \
 		--no-cache \
-		--platform=$(PLATFORM) \
+		--platform=$(PLATFORMS) \
 		$(OUTPUT) \
 		--progress=$(PROGRESS) \
 		--push \
