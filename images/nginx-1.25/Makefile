@@ -33,6 +33,7 @@ export DOCKER_CLI_EXPERIMENTAL=enabled
 
 # build with buildx
 PLATFORMS?=linux/amd64,linux/arm64
+BUILDX_PLATFORMS?=linux/amd64,linux/arm64
 OUTPUT=
 PROGRESS=plain
 build: ensure-buildx
@@ -45,6 +46,18 @@ build: ensure-buildx
 # push the cross built image
 push: OUTPUT=--push
 push: build
+
+.PHONY: push-image
+push-image:
+	docker buildx build \
+		--sbom=true \
+		--attest type=provenance,mode=max \
+		--no-cache \
+		--platform=$(BUILDX_PLATFORMS) \
+		$(OUTPUT) \
+		--progress=$(PROGRESS) \
+		--push \
+		--tag $(IMAGE):$(TAG) rootfs
 
 # enable buildx
 ensure-buildx:

@@ -56,12 +56,18 @@ build: precheck ensure-buildx
 		--label=org.opencontainers.image.source=https://github.com/kubernetes/ingress-nginx \
 		--label=org.opencontainers.image.licenses=Apache-2.0 \
 		--label=org.opencontainers.image.description="Ingress NGINX $(NAME) image" \
-		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
-		--build-arg GOLANG_VERSION=$(GO_VERSION) \
+		--build-arg BASE_IMAGE="$(BASE_IMAGE)" \
+		--build-arg GOLANG_VERSION="$(GO_VERSION)" \
+		--build-arg VERSION="$(TAG)" \
+		--build-arg COMMIT_SHA="$(COMMIT_SHA)" \
+		--build-arg BUILD_ID="$(BUILD_ID)" \
+		--build-arg TAG=$(TAG:$(BUILD_META)=) \
 		--platform=${PLATFORMS} $(OUTPUT) \
 		--progress=$(PROGRESS) \
 		--pull $(EXTRAARGS) \
-		-t $(IMAGE):$(TAG) $(NAME)/rootfs
+		--tag $(IMAGE):$(TAG) \
+		--push \
+		$(NAME)/rootfs
 
 # push the cross built image
 push: OUTPUT=--push
